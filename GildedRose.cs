@@ -15,7 +15,6 @@ namespace csharpcore
             foreach (var item in Items)
             {
                 item.Degenerating();
-                item.CorrectQualityLimits();
             }
         }
     }

@@ -18,16 +18,17 @@
             if (item.IsSellByDatePassed())
             {
                 item.UpdateItemSellByDatePassed(qualityDegenerationFaktor);
-                return;
             }
-
-            if (item.IsBackstage())
+            else if (item.IsBackstage())
             {
                 item.UpdateBackStageItem();
-                return;
+            }
+            else
+            {
+                item.Quality -= qualityDegenerationFaktor;
             }
             
-            item.Quality -= qualityDegenerationFaktor;
+            item.CorrectQualityLimits();
         }
 
         private static void UpdateItemSellByDatePassed(this Item item, int qualityDegenerationFaktor)
@@ -51,13 +52,8 @@
                 item.Quality += BackStageQualityIncreaseNormal;
         }
 
-        public static void CorrectQualityLimits(this Item item)
+        private static void CorrectQualityLimits(this Item item)
         {
-            if (item.IsSulfuras())
-            {
-                return;
-            }
-
             if (item.Quality < 0)
                 item.Quality = 0;
 
